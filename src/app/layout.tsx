@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "SafeWallet",
   description: "SafeWallet is a modern banking platform for everyone",
   icons: {
-    icon: "/logo/svg/logo-no-background.svg",
+    icon: "/logo/png/favicon.png",
   },
 };
 

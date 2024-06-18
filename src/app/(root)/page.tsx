@@ -1,8 +1,8 @@
-import HeaderBox from "@/components/HeaderBox";
-import TotalBalanceBox from "@/components/TotalBalanceBox";
+import HeaderBox from "@/app/(root)/_components/HeaderBox";
+import TotalBalanceBox from "@/app/(root)/_components/TotalBalanceBox";
 
 const Home = () => {
-  const loggedIn = { firstName: "Jwanma" };
+  const loggedIn = { firstName: "Juan Martín" };
 
   return (
     <section className="no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll">
