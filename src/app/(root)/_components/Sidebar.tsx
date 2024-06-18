@@ -23,7 +23,7 @@ const Sidebar = ({ user }: SidebarProps) => {
         {sidebarLinks.map((sidebarLink) => {
           const isActive =
             pathname === sidebarLink.route ||
-            pathname.startsWith(`${sidebarLink.route}`);
+            pathname.startsWith(`${sidebarLink.route}/`);
           return (
             <Link
               className={cn("sidebar-link", {
