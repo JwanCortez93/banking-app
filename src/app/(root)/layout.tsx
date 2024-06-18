@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Sidebar from "./_components/Sidebar";
 import MobileNav from "./_components/MobileNav";
+import { userMock } from "@/lib/mocks";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = { firstName: "Juan Martín", lastName: "Cortez" };
+  
 
   return (
     <main className="flex h-screen w-full font-inter">
-      <Sidebar user={loggedIn} />
+      <Sidebar user={userMock} />
       <div className="flex size-full flex-col">
         <div className="root-layout">
           <Image
@@ -21,7 +22,7 @@ export default function RootLayout({
             width={150}
           />
           <div>
-            <MobileNav user={loggedIn} />
+            <MobileNav user={userMock} />
           </div>
         </div>
         {children}
