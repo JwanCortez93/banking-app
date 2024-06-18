@@ -70,8 +70,9 @@ const config = {
         },
       },
       backgroundImage: {
-        "bank-gradient": "linear-gradient(90deg, #A437DB 0%, #b542ee 100%)",
-        "gradient-mesh": "url('/icons/gradient-mesh.svg')",
+        "bank-gradient": "linear-gradient(90deg, #A437DB 0%, #9747fe 100%)",
+        "gradient-mesh":
+          "linear-gradient(90deg, rgba(181,66,238,1) 0%, rgba(103,31,195,1) 100%);",
         "bank-green-gradient":
           "linear-gradient(90deg, #01797A 0%, #489399 100%)",
       },
@@ -85,7 +86,7 @@ const config = {
       },
       fontFamily: {
         inter: "var(--font-inter)",
-        "ibm-plex-serif": "var(--font-ibm-plex-serif)",
+        "playfair-display": "var(--font-playfair-display)",
       },
       keyframes: {
         "accordion-down": {

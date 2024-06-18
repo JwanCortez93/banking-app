@@ -1,8 +1,13 @@
 import HeaderBox from "@/app/(root)/_components/HeaderBox";
 import TotalBalanceBox from "@/app/(root)/_components/TotalBalanceBox";
+import RightSidebar from "./_components/RightSidebar";
 
 const Home = () => {
-  const loggedIn = { firstName: "Juan Martín" };
+  const loggedIn = {
+    firstName: "Juan Martín",
+    lastName: "Cortez",
+    email: "jwancortez@gmail.com",
+  };
 
   return (
     <section className="no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll">
@@ -22,6 +27,11 @@ const Home = () => {
           />
         </header>
       </div>
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[{ currentBalance: 123.5 }, { currentBalance: 500 }]}
+      />
     </section>
   );
 };
