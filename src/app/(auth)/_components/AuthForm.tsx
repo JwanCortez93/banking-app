@@ -11,13 +11,19 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import CustomFormField from "./CustomFormField";
-import { authFormSchema } from "@/lib/utils";
+import { authFormSchemaSignIn, authFormSchemaSignUp } from "@/lib/utils";
+import { useFormStatus } from "react-dom";
+import { Loader2 } from "lucide-react";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const schema =
+    type === "sign-up" ? authFormSchemaSignUp : authFormSchemaSignIn;
+
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: {
       username: "",
       email: "",
@@ -26,8 +32,12 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof authFormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof schema>) => {
+    setIsLoading(true);
+    await setTimeout(() => {
+      console.log(values);
+    }, 4000);
+    setIsLoading(false);
   };
 
   return (
@@ -91,7 +101,22 @@ const AuthForm = ({ type }: { type: string }) => {
                   type="password"
                 />
               )}
-              <Button type="submit">Submit</Button>
+              <Button
+                className="form-btn w-full"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" /> &nbsp;
+                    Loading...
+                  </>
+                ) : type === "sign-in" ? (
+                  "Sign In"
+                ) : (
+                  "Sign Un"
+                )}
+              </Button>
             </form>
           </Form>
         </>

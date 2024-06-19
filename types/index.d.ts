@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
-import { signInFormSchema, signUpFormSchema } from "@/lib/utils";
-import { Control, Form, UseFormReturn } from "react-hook-form";
+import { authFormSchema } from "@/lib/utils";
+import { Control, FieldPath, Form, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
 declare type SearchParamProps = {
@@ -53,10 +53,8 @@ declare type NewUserParams = {
 };
 
 declare type CustomFormFieldProps = {
-  control:
-    | Control<z.infer<typeof signInFormSchema>>
-    | Control<z.infer<typeof signUpFormSchema>>;
-  name: "username" | "email" | "password" | "passwordConfirmation";
+  control: Control<z.infer<typeof authFormSchemaSignUp>>;
+  name: FieldPath<z.infer<typeof authFormSchemaSignUp>>;
   label: string;
   placeholder: string;
   type: string;

@@ -195,10 +195,15 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const authFormSchema = z
+export const authFormSchemaSignIn = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+});
+
+export const authFormSchemaSignUp = z
   .object({
     email: z.string().email(),
-    username: z.string().min(1).optional(),
+    username: z.string().min(1),
     password: z
       .string()
       .min(6, "Password must be at least 6 characters long")
@@ -210,7 +215,7 @@ export const authFormSchema = z
         /[^a-zA-Z0-9]/,
         "Password must contain at least one special character"
       ),
-    passwordConfirmation: z.string().optional(),
+    passwordConfirmation: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords don't match",
