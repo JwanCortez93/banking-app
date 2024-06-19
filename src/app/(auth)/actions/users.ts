@@ -49,11 +49,22 @@ export const signUp = async (data: SignUpParams) => {
   }
 };
 
-export async function getLoggedInUser() {
+export const getLoggedInUser = async () => {
   try {
     const { account } = await createSessionClient();
     return await account.get();
   } catch (error) {
-    return null;
+    console.error("Error", error);
   }
-}
+};
+
+export const logOut = async () => {
+  try {
+    const { account } = await createSessionClient();
+    cookies().delete("appwrite-session");
+
+    return await account.deleteSession("current");
+  } catch (error) {
+    console.error("Error", error);
+  }
+};
