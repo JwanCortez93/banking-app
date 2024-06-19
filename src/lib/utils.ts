@@ -3,6 +3,7 @@ import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
+import { AccountTypes, CategoryCount, Transaction } from "../../types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -197,13 +198,25 @@ export const getTransactionStatus = (date: Date) => {
 
 export const authFormSchemaSignIn = z.object({
   email: z.string().email(),
-  password: z.string().min(1),
+  password: z.string().min(3),
 });
 
 export const authFormSchemaSignUp = z
   .object({
+    firstName: z.string().min(3),
+    lastName: z.string().min(3),
+    address1: z.string().min(3).max(50),
+    city: z.string().min(3).max(50),
+    state: z.string().min(2).max(2),
+    postalCode: z.string().min(3).max(6),
+    dateOfBirth: z
+      .string()
+      .regex(
+        /^\d{4}\/\d{2}\/\d{2}$/,
+        "Date of Birth must be in YYYY/MM/DD format"
+      ),
+    ssn: z.string().min(3),
     email: z.string().email(),
-    username: z.string().min(1),
     password: z
       .string()
       .min(6, "Password must be at least 6 characters long")

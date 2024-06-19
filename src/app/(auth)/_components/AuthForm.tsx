@@ -12,10 +12,11 @@ import { z } from "zod";
 
 import CustomFormField from "./CustomFormField";
 import { authFormSchemaSignIn, authFormSchemaSignUp } from "@/lib/utils";
-import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ type }: { type: string }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,25 +26,46 @@ const AuthForm = ({ type }: { type: string }) => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: "",
+      firstName: "",
+      lastName: "",
+      address1: "",
+      dateOfBirth: "",
+      postalCode: "",
+      ssn: "",
+      state: "",
       email: "",
       password: "",
       passwordConfirmation: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
     setIsLoading(true);
-    await setTimeout(() => {
-      console.log(values);
-    }, 4000);
-    setIsLoading(false);
+
+    try {
+      if (type === "sign-up") {
+        // const newUser = await signUp(data);
+        // setUser(newUser);
+      } else {
+        // const response = await signIn({
+        //   email: data.email,
+        //   password: data.password,
+        // });
+        // if (response) {
+        //   router.push("/");
+        // }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
-        <Link href={"/"} className="mb-12 cursor-pointer items-center gap-2">
+        <Link href={"/"} className="mb-2 cursor-pointer items-center gap-2">
           <Image
             className="size-200 flex-shrink-0"
             alt="SafeWallet Logo"
@@ -70,13 +92,70 @@ const AuthForm = ({ type }: { type: string }) => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {type === "sign-up" && (
-                <CustomFormField
-                  control={form.control}
-                  name="username"
-                  label="Username"
-                  placeholder="SafeWalletUsername"
-                  type="text"
-                />
+                <>
+                  <div className="flex gap-4">
+                    <CustomFormField
+                      control={form.control}
+                      name="firstName"
+                      label="First Name"
+                      placeholder="ex: John"
+                      type="text"
+                    />
+                    <CustomFormField
+                      control={form.control}
+                      name="lastName"
+                      label="Last Name"
+                      placeholder="ex: Doe"
+                      type="text"
+                    />
+                  </div>
+                  <CustomFormField
+                    control={form.control}
+                    name="address1"
+                    label="Address"
+                    placeholder="Enter your specific address"
+                    type="text"
+                  />
+                  <CustomFormField
+                    control={form.control}
+                    name="city"
+                    label="City"
+                    placeholder="Enter your city"
+                    type="text"
+                  />
+                  <div className="flex gap-4">
+                    <CustomFormField
+                      control={form.control}
+                      name="state"
+                      label="State"
+                      placeholder="ex: NY"
+                      type="text"
+                    />
+                    <CustomFormField
+                      control={form.control}
+                      name="postalCode"
+                      label="Postal Code"
+                      placeholder="ex: 14171"
+                      type="text"
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    <CustomFormField
+                      control={form.control}
+                      name="dateOfBirth"
+                      label="Date of Birth"
+                      placeholder="YYYY-MM-DD"
+                      type="text"
+                    />
+                    <CustomFormField
+                      control={form.control}
+                      name="ssn"
+                      label="SSN"
+                      placeholder="ex: 1234"
+                      type="text"
+                    />
+                  </div>
+                </>
               )}
               <CustomFormField
                 control={form.control}
@@ -119,6 +198,19 @@ const AuthForm = ({ type }: { type: string }) => {
               </Button>
             </form>
           </Form>
+          <footer className="flex justify-center gap-1">
+            <p className="text-14 font-normal text-gray-600">
+              {type === "sign-in"
+                ? "Don't have an account?"
+                : "Already have an account?"}
+            </p>
+            <Link
+              className="form-link"
+              href={type === "sign-in" ? "/sign-up" : "/sign-in"}
+            >
+              {type === "sign-in" ? "Sign Up" : "Sign In"}
+            </Link>
+          </footer>
         </>
       )}
     </section>

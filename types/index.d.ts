@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { authFormSchema } from "@/lib/utils";
+import { authFormSchemaSignIn, authFormSchemaSignUp } from "@/lib/utils";
 import { Control, FieldPath, Form, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
@@ -53,8 +53,12 @@ declare type NewUserParams = {
 };
 
 declare type CustomFormFieldProps = {
-  control: Control<z.infer<typeof authFormSchemaSignUp>>;
-  name: FieldPath<z.infer<typeof authFormSchemaSignUp>>;
+  control: Control<
+    z.infer<typeof authFormSchemaSignUp | typeof authFormSchemaSignIn>
+  >;
+  name: FieldPath<
+    z.infer<typeof authFormSchemaSignUp | typeof authFormSchemaSignIn>
+  >;
   label: string;
   placeholder: string;
   type: string;

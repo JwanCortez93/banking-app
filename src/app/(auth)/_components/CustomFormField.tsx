@@ -5,8 +5,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { CustomFormFieldProps } from "../../../../types";
 import { Input } from "@/components/ui/input";
+import { CustomFormFieldProps } from "../../../../types";
 
 const CustomFormField = ({
   control,
