@@ -3,5 +3,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main>{children}</main>;
+  return (
+    <main className="flex min-h-screen w-full justify-between font-inter">
+      {children}
+      <div className=" auth-asset  bg-bank-gradient"></div>
+    </main>
+  );
 }
