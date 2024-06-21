@@ -196,41 +196,44 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const authFormSchemaSignIn = z.object({
-  email: z.string().email(),
-  password: z.string().min(3),
-});
-
-export const authFormSchemaSignUp = z
-  .object({
-    firstName: z.string().min(3),
-    lastName: z.string().min(3),
-    address1: z.string().min(3).max(50),
-    city: z.string().min(3).max(50),
-    state: z.string().min(2).max(2),
-    postalCode: z.string().min(3).max(6),
-    dateOfBirth: z
-      .string()
-      .regex(
-        /^\d{4}\/\d{2}\/\d{2}$/,
-        "Date of Birth must be in YYYY/MM/DD format"
-      ),
-    ssn: z.string().min(3),
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 characters long")
-      .max(15, "Password must be no more than 15 characters long")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .regex(/[0-9]/, "Password must contain at least one number")
-      .regex(
-        /[^a-zA-Z0-9]/,
-        "Password must contain at least one special character"
-      ),
-    passwordConfirmation: z.string(),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: "Passwords don't match",
-    path: ["passwordConfirmation"],
-  });
+export const authFormSchema = (type: string) =>
+  z
+    .object({
+      firstName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+      lastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+      address1:
+        type === "sign-in" ? z.string().optional() : z.string().min(3).max(50),
+      city:
+        type === "sign-in" ? z.string().optional() : z.string().min(3).max(50),
+      state:
+        type === "sign-in" ? z.string().optional() : z.string().min(2).max(2),
+      postalCode:
+        type === "sign-in" ? z.string().optional() : z.string().min(3).max(6),
+      dateOfBirth:
+        type === "sign-in"
+          ? z.string().optional()
+          : z
+              .string()
+              .regex(
+                /^\d{4}\-\d{2}\-\d{2}$/,
+                "Date of Birth must be in YYYY-MM-DD format"
+              ),
+      ssn: type === "sign-in" ? z.string().optional() : z.string().min(3),
+      email: z.string().email(),
+      password: z
+        .string()
+        .min(6, "Password must be at least 6 characters long")
+        .max(15, "Password must be no more than 15 characters long")
+        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/[0-9]/, "Password must contain at least one number")
+        .regex(
+          /[^a-zA-Z0-9]/,
+          "Password must contain at least one special character"
+        ),
+      passwordConfirmation: z.string(),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: "Passwords don't match",
+      path: ["passwordConfirmation"],
+    });
