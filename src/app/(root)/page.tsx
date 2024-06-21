@@ -4,9 +4,22 @@ import RightSidebar from "./_components/RightSidebar";
 import { bank, firstAccount, secondAccount, userMock } from "@/lib/mocks";
 import { getLoggedInUser } from "../(auth)/_actions/users";
 import { redirect } from "next/navigation";
+import { getAccount, getAccounts } from "./_actions/banks";
+import { SearchParamProps } from "../../../types";
 
-const Home = async () => {
+const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
   const loggedInUser = await getLoggedInUser();
+
+  const accounts = await getAccounts({ userId: loggedInUser?.$id });
+
+  if (!accounts) return;
+
+  const accountsData = accounts?.data;
+  const appwriteItemId = (id as string) || accountsData[0]?.apprwiteItemId;
+
+  const account = await getAccount({ appwriteItemId });
+
+  console.log({ accountsData, account });
 
   if (!loggedInUser) {
     redirect("/sign-in");
@@ -19,24 +32,21 @@ const Home = async () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedInUser?.name || "Guest"}
+            user={loggedInUser?.firstName || "Guest"}
             subtext="Access and manage your account and transactions efficiently."
           />
 
           <TotalBalanceBox
-            accounts={[]}
-            totalBanks={1}
-            totalCurrentBalance={1250.35}
+            accounts={accountsData}
+            totalBanks={accounts?.totalBanks}
+            totalCurrentBalance={accounts.totalCurrentBalance}
           />
         </header>
       </div>
       <RightSidebar
         user={loggedInUser}
-        transactions={[]}
-        banks={[
-          { ...bank, ...firstAccount },
-          { ...bank, ...secondAccount },
-        ]}
+        transactions={accounts?.transactions}
+        banks={accountsData?.slice(0, 2)}
       />
     </section>
   );

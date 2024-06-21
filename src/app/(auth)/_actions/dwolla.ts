@@ -103,6 +103,10 @@ export const addFundingSource = async ({
 }: AddFundingSourceParams) => {
   try {
     const dwollaAuthLinks = await createOnDemandAuthorization();
+    console.log(
+      "Step 19: We create Auth Links from Dwolla // Auth Links: ",
+      dwollaAuthLinks
+    );
 
     const fundingSourceOptions = {
       customerId: dwollaCustomerId,
@@ -110,6 +114,17 @@ export const addFundingSource = async ({
       plaidToken: processorToken,
       _links: dwollaAuthLinks,
     };
+
+    console.log(
+      "Step 20: We prepare our options for funding a source // Customer Id: ",
+      dwollaCustomerId,
+      " Funding Source Name (Bank Name): ",
+      bankName,
+      " Plaid Token (Processor Token): ",
+      processorToken,
+      " Auth Links: ",
+      dwollaAuthLinks
+    );
 
     return await createFundingSource(fundingSourceOptions);
   } catch (error) {

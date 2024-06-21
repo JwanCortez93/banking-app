@@ -20,7 +20,7 @@ export const bank: Bank = {
   accessToken: "",
   accountId: crypto.randomUUID(),
   fundingSourceUrl: "",
-  sharableId: "",
+  shareableId: "",
   userId: crypto.randomUUID(),
 };
 
@@ -28,7 +28,7 @@ export const firstAccount: Account = {
   id: crypto.randomUUID(),
   appwriteItemId: crypto.randomUUID(),
   institutionId: crypto.randomUUID(),
-  sharableId: crypto.randomUUID(),
+  shareableId: crypto.randomUUID(),
   availableBalance: 50000,
   currentBalance: 35214.25,
   mask: "1234",
@@ -42,7 +42,7 @@ export const secondAccount: Account = {
   id: crypto.randomUUID(),
   appwriteItemId: crypto.randomUUID(),
   institutionId: crypto.randomUUID(),
-  sharableId: crypto.randomUUID(),
+  shareableId: crypto.randomUUID(),
   availableBalance: 20000,
   currentBalance: 2648.25,
   mask: "5678",
