@@ -2,7 +2,7 @@ import Image from "next/image";
 import Sidebar from "./_components/Sidebar";
 import MobileNav from "./_components/MobileNav";
 import { userMock } from "@/lib/mocks";
-import { getLoggedInUser } from "../(auth)/actions/users";
+import { getLoggedInUser } from "../(auth)/_actions/users";
 import { redirect } from "next/navigation";
 
 export default async function RootLayout({

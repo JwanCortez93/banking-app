@@ -13,7 +13,7 @@ import { z } from "zod";
 import CustomFormField from "./CustomFormField";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { signIn, signUp } from "../actions/users";
+import { signIn, signUp } from "../_actions/users";
 import PlaidLink from "./PlaidLink";
 import { authFormSchema } from "@/lib/utils";
 

@@ -1,6 +1,6 @@
 import { LogOut } from "lucide-react";
 import { FooterProps } from "../../../../types";
-import { logOut } from "@/app/(auth)/actions/users";
+import { logOut } from "@/app/(auth)/_actions/users";
 import { useRouter } from "next/navigation";
 
 const Footer = ({ user, type = "desktop" }: FooterProps) => {
