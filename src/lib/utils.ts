@@ -231,9 +231,14 @@ export const authFormSchema = (type: string) =>
           /[^a-zA-Z0-9]/,
           "Password must contain at least one special character"
         ),
-      passwordConfirmation: z.string(),
+      passwordConfirmation:
+        type === "sign-in" ? z.string().optional() : z.string(),
     })
-    .refine((data) => data.password === data.passwordConfirmation, {
-      message: "Passwords don't match",
-      path: ["passwordConfirmation"],
-    });
+    .refine(
+      (data) =>
+        type === "sign-in" || data.password === data.passwordConfirmation,
+      {
+        message: "Passwords don't match",
+        path: ["passwordConfirmation"],
+      }
+    );
