@@ -19,11 +19,6 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
   try {
     const banks = await getBanks({ userId });
 
-    console.log(
-      "Step 26: With our user Id we get the banks from our database // Banks: ",
-      banks
-    );
-
     const accounts: Account[] = await Promise.all(
       banks?.map(async (bank: Bank) => {
         const accountsResponse = await plaidClient.accountsGet({
@@ -57,14 +52,6 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
     const totalCurrentBalance = accounts.reduce((total, account) => {
       return total + account.currentBalance;
     }, 0);
-    console.log(
-      "Step 27: With our banks' access tokens from the database, we connect with plaid and request the accounts data // Accounts: ",
-      accounts,
-      " Total Banks: ",
-      totalBanks,
-      "Total Current Balance: ",
-      totalCurrentBalance
-    );
 
     return parseStringify({ data: accounts, totalBanks, totalCurrentBalance });
   } catch (error) {
