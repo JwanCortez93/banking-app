@@ -4,6 +4,7 @@ import { PlaidLinkOptions, usePlaidLink } from "react-plaid-link";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createLinkToken, exchangePublicToken } from "../_actions/users";
+import { MonitorUp } from "lucide-react";
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
@@ -49,9 +50,21 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           Connect Bank
         </Button>
       ) : variant === "ghost" ? (
-        <Button>Connect Bank</Button>
+        <Button
+          onClick={() => open()}
+          variant="ghost"
+          className="plaidlink-ghost"
+        >
+          <MonitorUp className="text-black-2" />
+          <p className="hidden text-[16px] font-semibold text-black-2 xl:block">
+            Connect Bank
+          </p>
+        </Button>
       ) : (
-        <Button>Connect Bank</Button>
+        <Button onClick={() => open()} className="plaidlink-default">
+          <MonitorUp className="text-gray-400" />
+          <p className="text-[16px] font-semibold text-black-2">Connect Bank</p>
+        </Button>
       )}
     </>
   );
