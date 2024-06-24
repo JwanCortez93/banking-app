@@ -78,16 +78,15 @@ export const getInstitution = async ({
 
 export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
   try {
-    // get bank from db
     const bank = await getBank({ documentId: appwriteItemId });
 
-    // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
       access_token: bank.accessToken,
     });
     const accountData = accountsResponse.data.accounts[0];
 
-    // get transfer transactions from appwrite
+    
+
     const transferTransactionsData = await getTransactionsByBankId({
       bankId: bank.$id,
     });
@@ -104,7 +103,6 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
       })
     );
 
-    // get institution info from plaid
     const institution = await getInstitution({
       institutionId: accountsResponse.data.item.institution_id!,
     });
@@ -126,7 +124,6 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
       appwriteItemId: bank.$id,
     };
 
-    // sort transactions by date such that the most recent transaction is first
     const allTransactions = [...transactions, ...transferTransactions].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
@@ -139,6 +136,7 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
     console.error("An error occurred while getting the account:", error);
   }
 };
+
 export const getTransactions = async ({
   accessToken,
 }: getTransactionsProps) => {

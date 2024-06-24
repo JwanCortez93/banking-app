@@ -1,12 +1,38 @@
 import { createAdminClient } from "@/lib/appwrite";
-import { getTransactionsByBankIdProps } from "../../../../types";
-import { Query } from "node-appwrite";
+import {
+  CreateTransactionProps,
+  getTransactionsByBankIdProps,
+} from "../../../../types";
+import { ID, Query } from "node-appwrite";
 import { parseStringify } from "@/lib/utils";
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
   APPWRITE_TRANSACTION_COLLECTION_ID: TRANSACTION_COLLECTION_ID,
 } = process.env;
+
+export const createTransaction = async (
+  transaction: CreateTransactionProps
+) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const newTransaction = await database.createDocument(
+      DATABASE_ID!,
+      TRANSACTION_COLLECTION_ID!,
+      ID.unique(),
+      {
+        channel: "online",
+        category: "Transfer",
+        ...transaction,
+      }
+    );
+
+    return parseStringify(newTransaction);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getTransactionsByBankId = async ({
   bankId,
