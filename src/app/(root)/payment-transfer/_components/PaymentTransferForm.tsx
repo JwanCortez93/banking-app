@@ -23,6 +23,7 @@ import CustomFormField from "@/app/(auth)/_components/CustomFormField";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import BankDropdown from "./BankDropdown";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),

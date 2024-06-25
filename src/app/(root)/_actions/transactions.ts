@@ -1,3 +1,5 @@
+"use server";
+
 import { createAdminClient } from "@/lib/appwrite";
 import {
   CreateTransactionProps,
