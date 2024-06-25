@@ -1,4 +1,12 @@
-import { ArrowLeftRight, CircleDollarSign, Home, Landmark } from "lucide-react";
+import {
+  ArrowLeftRight,
+  CircleDollarSign,
+  Home,
+  Landmark,
+  PlaneTakeoff,
+  ShoppingBag,
+  Utensils,
+} from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -67,7 +75,7 @@ export const topCategoryStyles = {
       bg: "bg-blue-100",
       indicator: "bg-blue-700",
     },
-    icon: "/icons/monitor.svg",
+    icon: <Utensils className="text-blue-900" />,
   },
   Travel: {
     bg: "bg-success-25",
@@ -80,7 +88,7 @@ export const topCategoryStyles = {
       bg: "bg-success-100",
       indicator: "bg-success-700",
     },
-    icon: "/icons/coins.svg",
+    icon: <PlaneTakeoff className="text-success-900" />,
   },
   default: {
     bg: "bg-pink-25",
@@ -93,7 +101,7 @@ export const topCategoryStyles = {
       bg: "bg-pink-100",
       indicator: "bg-pink-700",
     },
-    icon: "/icons/shopping-bag.svg",
+    icon: <ShoppingBag className="text-pink-900" />,
   },
 };
 
