@@ -1,3 +1,4 @@
+import { HeaderBoxProps } from "../../../../types";
 
 const HeaderBox = ({
   type = "title",

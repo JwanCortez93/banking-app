@@ -1,7 +1,7 @@
 import HeaderBox from "@/app/(root)/_components/HeaderBox";
 import TotalBalanceBox from "@/app/(root)/_components/TotalBalanceBox";
 import RightSidebar from "./_components/RightSidebar";
-import { bank, firstAccount, secondAccount, userMock } from "@/lib/mocks";
+
 import { getLoggedInUser } from "../(auth)/_actions/users";
 import { redirect } from "next/navigation";
 import { getAccount, getAccounts } from "./_actions/banks";
