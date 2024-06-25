@@ -4,11 +4,11 @@ import HeaderBox from "../_components/HeaderBox";
 import { getAccount, getAccounts } from "../_actions/banks";
 import { formatAmount } from "@/lib/utils";
 import TransactionTable from "../_components/TransactionTable";
+import Pagination from "../_components/Pagination";
 
 const TransactionHistory = async ({
   searchParams: { id, page },
 }: SearchParamProps) => {
-  const currentPage = Number(page as string) || 1;
   const loggedInUser = await getLoggedInUser();
 
   const accounts = await getAccounts({ userId: loggedInUser?.$id });
@@ -19,6 +19,18 @@ const TransactionHistory = async ({
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
 
   const account = await getAccount({ appwriteItemId });
+  const currentPage = Number(page as string) || 1;
+  const rowsPerPage = 10;
+  const totalPages = Math.ceil(account?.transactions.length / rowsPerPage);
+
+  const indexOfLastTransaction = currentPage * rowsPerPage;
+  const indexOfFirstTransaction = indexOfLastTransaction - rowsPerPage;
+
+  const currentTransactions = account?.transactions.slice(
+    indexOfFirstTransaction,
+    indexOfLastTransaction
+  );
+
   return (
     <section className="transactions">
       <div className="transactions-header">
@@ -47,7 +59,12 @@ const TransactionHistory = async ({
           </div>
         </div>
         <section className="flex w-full flex-col gap-6">
-          <TransactionTable transactions={account?.transactions} />
+          <TransactionTable transactions={currentTransactions} />
+          {totalPages > 1 && (
+            <div className="my-4 w-full">
+              <Pagination totalPages={totalPages} page={currentPage} />
+            </div>
+          )}
         </section>
       </div>
     </section>
